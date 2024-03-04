@@ -6,7 +6,15 @@
 # deploy: Start Snyk Broker to kubernetes
 # destoy: delete the Snyk Broker deployment
 #
-# set the required environment variables
+# curl the broker token from the Snyk API
+# 
+curl --include \
+    --request POST \
+     --header "Content-Type: application/json" \
+     --header "Authorization: token $SNYK_TOKEN" \
+  'https://api.snyk.io/v1/org/'${SNYK_ORG_ID}'/integrations/'${SNYK_INTEGRATION_ID}'/authentication/provision-token'
+
+# set the required environment variables before running this script
 export BROKER_TOKEN=$BROKER_TOKEN
 export GITHUB_URL=$GITHUB_URL
 export GITHUB_TOKEN=$GITHUB_TOKEN
